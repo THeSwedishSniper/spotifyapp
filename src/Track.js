@@ -1,23 +1,26 @@
-
+// src/Track.js
 import React from 'react';
 
-function Track({ track, onAdd, onRemove, isRemoval }) {
-  const handleAdd = () => onAdd(track);
-  const handleRemove = () => onRemove(track);
+function Track({ track, onAdd, onRemove }) {
+    const handleAdd = () => {
+        if (onAdd) {
+            onAdd(track);
+        }
+    };
 
-  return (
-    <div className="Track">
-      <div className="Track-information">
-        <h3>{track.name}</h3>
-        <p>{track.artist} | {track.album}</p>
-      </div>
-      {isRemoval ? (
-        <button className="Track-action" onClick={handleRemove}>-</button>
-      ) : (
-        <button className="Track-action" onClick={handleAdd}>+</button>
-      )}
-    </div>
-  );
+    const handleRemove = () => {
+        if (onRemove) {
+            onRemove(track);
+        }
+    };
+
+    return (
+        <div className='track'>
+            <p>{track.name} by {track.artist} from {track.album}</p>
+            {onAdd && <button onClick={handleAdd}>Add</button>}
+            {onRemove && <button onClick={handleRemove}>Remove</button>}
+        </div>
+    );
 }
 
 export default Track;
